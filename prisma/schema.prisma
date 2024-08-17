@@ -35,9 +35,9 @@ model Recipe {
   ingredients  String
   image        String?
   instructions String
-  category     String
-  prepTime     Int
-  cookTime     Int
+  category     String?
+  prepTime     Int?
+  cookTime     Int?
   userId       Int
   user         User      @relation(fields: [userId], references: [id])
   comments     Comment[]
