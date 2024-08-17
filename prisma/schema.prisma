@@ -12,3 +12,46 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  password  String
+  fristName String?
+  lastName  String?
+  country   String?
+  gender    String?
+  token     String?
+  recipes   Recipe[]
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Recipe {
+  id           Int       @id @default(autoincrement())
+  title        String
+  description  String
+  ingredients  String
+  image        String
+  instructions String
+  category     String
+  prepTime     Int
+  cookTime     Int
+  userId       Int
+  user         User      @relation(fields: [userId], references: [id])
+  comments     Comment[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  recipeId  Int
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
