@@ -33,7 +33,7 @@ model Recipe {
   title        String
   description  String
   ingredients  String
-  image        String
+  image        String?
   instructions String
   category     String
   prepTime     Int
