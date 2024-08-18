@@ -5,12 +5,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon ./src/index.js"
+    "start": "npx nodemon ./src/index.js",
+    "seed": "node prisma/seed.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@prisma/client": "^5.18.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
