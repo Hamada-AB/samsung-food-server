@@ -9,5 +9,11 @@ app.use(cors());
 app.use(express.json());
 
 import { userRouter } from "./routers/userRouter.js";
+import { recipeRouter } from "./routers/recipeRouter.js";
+import { commentRouter } from "./routers/commentRouter.js";
+import { savedRecipeRouter } from "./routers/savedRecipeRouter.js";
 
 app.use("/user", userRouter);
+app.use("/recipe", recipeRouter);
+app.use("/comment", commentRouter);
+app.use("/savedRecipe", savedRecipeRouter);

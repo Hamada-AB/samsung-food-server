@@ -15,8 +15,7 @@ export const register = async (req, res) => {
     await createUserDb(email, hashedPassword);
 
     res.status(201).json({
-      message:
-        "Your account has been created successfully. You can log in to your account now.",
+      message: "Your account has been created successfully.",
     });
   } catch (error) {
     if (error.code === "P2002" && error.meta.target.includes("email")) {
@@ -44,7 +43,10 @@ export const login = async (req, res) => {
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
 
     await updateUserDb(user.id, token);
-    res.json({ token, userInfo: { email, lastVisit: user.updatedAt } });
+    res.json({
+      token,
+      userInfo: { id: user.id, email, lastVisit: user.updatedAt },
+    });
   } else {
     res
       .status(401)
