@@ -14,22 +14,23 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  password  String
-  fristName String?
-  lastName  String?
-  country   String?
-  gender    String?
-  token     String?
-  recipes   Recipe[]
-  comments  Comment[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  password     String
+  firstName    String?
+  lastName     String?
+  country      String?
+  gender       String?
+  token        String?
+  recipes      Recipe[]
+  comments     Comment[]
+  savedRecipes SavedRecipe[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 }
 
 model Recipe {
-  id           Int       @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   title        String
   description  String
   ingredients  String
@@ -39,10 +40,22 @@ model Recipe {
   prepTime     Int?
   cookTime     Int?
   userId       Int
-  user         User      @relation(fields: [userId], references: [id])
+  user         User          @relation(fields: [userId], references: [id])
   comments     Comment[]
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  savedBy      SavedRecipe[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model SavedRecipe {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  recipeId  Int
+  user      User     @relation(fields: [userId], references: [id])
+  recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, recipeId]) // Ensure that a user can save a specific recipe only once
 }
 
 model Comment {
