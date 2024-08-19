@@ -1,7 +1,12 @@
 import "dotenv/config";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { createUserDb, findUserDb, updateUserDb } from "../queries/user.js";
+import {
+  createUserDb,
+  findUserDb,
+  updateUserDb,
+  getUsersDb,
+} from "../queries/user.js";
 
 export const register = async (req, res) => {
   const { email, password } = req.body;
@@ -51,5 +56,14 @@ export const login = async (req, res) => {
     res
       .status(401)
       .json({ error: "Email or password is incorrect! Please try again." });
+  }
+};
+
+export const getUsers = async (req, res) => {
+  try {
+    const users = await getUsersDb();
+    res.status(200).json({ users });
+  } catch (error) {
+    res.status(404).json({ error: "Failed to load users" });
   }
 };

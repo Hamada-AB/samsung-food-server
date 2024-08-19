@@ -17,3 +17,7 @@ export const updateUserDb = async (id, token) => {
     data: { token },
   });
 };
+
+export const getUsersDb = async () => {
+  return await prisma.user.findMany();
+};
