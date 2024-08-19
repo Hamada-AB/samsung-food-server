@@ -11,10 +11,11 @@ async function main() {
         data: {
           email: faker.internet.email(),
           password: faker.internet.password(),
-          firstName: faker.person.firstName(),
+          fristName: faker.person.firstName(),
           lastName: faker.person.lastName(),
           country: faker.location.country(),
           gender: faker.person.sex(),
+          avatar: faker.image.urlLoremFlickr({ category: "people" }),
           token: faker.string.uuid(),
         },
       })
@@ -26,11 +27,11 @@ async function main() {
     users.map((user) =>
       prisma.recipe.create({
         data: {
-          title: faker.lorem.words(3),
-          description: faker.lorem.sentences(2),
-          ingredients: faker.lorem.sentences(3),
-          image: faker.image.food(),
-          instructions: faker.lorem.paragraphs(1),
+          title: faker.lorem.sentence({ min: 2, max: 3 }),
+          description: faker.lorem.sentences({ min: 2, max: 3 }),
+          ingredients: faker.lorem.sentences({ min: 3, max: 6 }),
+          image: faker.image.urlLoremFlickr({ category: "food" }),
+          instructions: faker.lorem.paragraph({ min: 7, max: 10 }),
           category: faker.helpers.arrayElement([
             "Vegetarian",
             "Vegan",
@@ -49,7 +50,7 @@ async function main() {
     recipes.map((recipe) =>
       prisma.comment.create({
         data: {
-          content: faker.lorem.sentence(),
+          content: faker.lorem.sentences({ min: 3, max: 6 }),
           recipeId: recipe.id,
           userId: users[faker.number.int({ min: 0, max: users.length - 1 })].id,
         },
