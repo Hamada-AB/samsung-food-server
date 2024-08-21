@@ -10,6 +10,10 @@ export const createSavedRecipeDb = async (userId, recipeId) => {
   });
 };
 
+export const getAllSavedRecipesDb = async () => {
+  return await prisma.savedRecipe.findMany();
+};
+
 export const getSavedRecipesDb = async (userId) => {
   return await prisma.savedRecipe.findMany({
     where: { userId },
