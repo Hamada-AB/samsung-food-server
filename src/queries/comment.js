@@ -1,11 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-export const createCommentDb = async (content) => {
+export const createCommentDb = async (content, userId, recipeId) => {
   return await prisma.comment.create({
     data: {
       content,
       userId,
+      recipeId,
     },
   });
 };

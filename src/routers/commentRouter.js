@@ -11,10 +11,8 @@ export const commentRouter = express.Router();
 
 commentRouter
   .route("/")
+  .get(authenticateToken, getComments)
   .post(authenticateToken, createComment)
-  .get(authenticateToken, getComments);
+  .put(authenticateToken, updateComment);
 
-commentRouter
-  .route("/:id")
-  .delete(authenticateToken, deleteComment)
-  .post(authenticateToken, updateComment);
+commentRouter.route("/:id").delete(authenticateToken, deleteComment);

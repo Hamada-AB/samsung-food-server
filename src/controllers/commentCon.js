@@ -6,14 +6,14 @@ import {
 } from "../queries/comment.js";
 
 export const createComment = async (req, res) => {
-  const { content } = req.body;
+  const { content, recipeId } = req.body;
 
   if (!content) {
     return res.status(400).json({ error: "Content is required." });
   }
 
   try {
-    const comment = await createCommentDb(content, req.user.userId);
+    const comment = await createCommentDb(content, req.user.userId, recipeId);
     res.status(201).json({ comment });
   } catch (error) {
     res.status(409).json(error);
