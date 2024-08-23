@@ -6,10 +6,10 @@ export const createRecipeDb = async (
   description,
   ingredients,
   instructions,
-  image,
-  category,
-  prepTime,
-  cookTime,
+  image = "",
+  category = "",
+  prepTime = 0,
+  cookTime = 0,
   userId
 ) => {
   return await prisma.recipe.create({

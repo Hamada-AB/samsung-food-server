@@ -4,6 +4,7 @@ import {
   deleteRecipeDb,
   updateRecipeDb,
 } from "../queries/recipe.js";
+import path from "path";
 
 export const createRecipe = async (req, res) => {
   const {
@@ -11,16 +12,28 @@ export const createRecipe = async (req, res) => {
     description,
     ingredients,
     instructions,
-
-    image = "",
-    category = "",
-    prepTime = "",
-    cookTime = "",
+    image = req.file ? req.file.path : "",
+    category,
+    prepTime,
+    cookTime,
   } = req.body;
 
+  // const image = req.file; //
+
   if (!title || !description || !ingredients || !instructions) {
-    return res.status(400).json({ error: "Missing fields." });
+    return res.status(400).json({ error: "Missing required fields." });
   }
+
+  // const newRecipe = {
+  //   title,
+  //   description,
+  //   ingredients,
+  //   instructions,
+  //   category,
+  //   prepTime: parseInt(prepTime),
+  //   cookTime: parseInt(cookTime),
+  //   image: image ? `/uploads/${image.filename}` : null,
+  // };
 
   try {
     const recipe = await createRecipeDb(
@@ -30,13 +43,15 @@ export const createRecipe = async (req, res) => {
       instructions,
       image,
       category,
-      prepTime,
-      cookTime,
+      parseInt(prepTime),
+      parseInt(cookTime),
       req.user.userId
     );
     res.status(201).json({ recipe });
   } catch (error) {
-    res.status(409).json(error);
+    // console.error("Error creating recipe:", error);
+    // res.status(409).json({ error: "Conflict: " + error.message });
+    res.status(404).json({ error: "Error creating recipe" });
   }
 };
 

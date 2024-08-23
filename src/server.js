@@ -7,6 +7,7 @@ export const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+// app.use("/uploads", express.static("uploads"));
 
 import { userRouter } from "./routers/userRouter.js";
 import { recipeRouter } from "./routers/recipeRouter.js";
