@@ -8,5 +8,5 @@ This project is made public to demonstrate my skills in full-stack development. 
 
 For any questions or feedback, feel free to reach out:
 
-- Email: hamada_abdelaal@hotmail.com
-- LinkedIn: [Hamada's LinkedIn](https://www.linkedin.com/in/hamada-abdelaal/)
+- Discord: hamada_abdelaal
+- [LinkedIn](https://www.linkedin.com/in/hamada-abdelaal/)
